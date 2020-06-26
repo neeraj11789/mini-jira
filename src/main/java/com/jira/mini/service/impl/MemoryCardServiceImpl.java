@@ -1,7 +1,6 @@
 package com.jira.mini.service.impl;
 
-import com.jira.mini.model.Dependency;
-import com.jira.mini.model.Epic;
+import com.jira.mini.model.*;
 import com.jira.mini.service.CardService;
 
 import java.util.ArrayList;
@@ -13,32 +12,48 @@ public class MemoryCardServiceImpl implements CardService {
 
 	private List<Dependency> dependencies = new ArrayList<>();
 	private Map<String, Epic> epicMap = new HashMap<>();
+	private Map<String, Story> storyMap = new HashMap<>();
+	private Map<String, Task> taskMap = new HashMap<>();
+	private Map<String, SubTask> subtaskMap = new HashMap<>();
 
 	/**
 	 * @param epic
 	 */
 	@Override
-	public void createEpic(Epic epic) {
+	public Epic createEpic(Epic epic) {
 		epicMap.putIfAbsent(epic.getId(), epic);
+		Dependency dependency = new Dependency(epic.getId(), null, DependencyType.CHILD_OF);
+		addDependency(dependency);
+		return epic;
 	}
 
 	@Override
-	public void createStory() {
-
+	public Story createStory(Story story, Epic epic) {
+		storyMap.putIfAbsent(story.getId(), story);
+		Dependency dependency = new Dependency(story.getId(), epic.getId(), DependencyType.CHILD_OF);
+		addDependency(dependency);
+		return story;
 	}
 
 	@Override
-	public void createTask() {
-
+	public Task createTask(Task task, Story story) {
+		taskMap.putIfAbsent(task.getId(), task);
+		Dependency dependency = new Dependency(task.getId(), story.getId(), DependencyType.CHILD_OF);
+		addDependency(dependency);
+		return task;
 	}
 
 	@Override
-	public void createSubTask() {
-
+	public SubTask createSubTask(SubTask subTask, Task task) {
+		return subTask;
 	}
 
 	@Override
-	public void addDependency() {
-
+	public void addDependency(Dependency dependency) {
+		/**
+		 * @todo
+		 * Currently only adding new dependencies and not editing
+		 */
+		dependencies.add(dependency);
 	}
 }

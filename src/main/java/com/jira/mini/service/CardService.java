@@ -1,18 +1,16 @@
 package com.jira.mini.service;
 
-import com.jira.mini.model.Card;
-import com.jira.mini.model.Epic;
-import com.jira.mini.model.Story;
+import com.jira.mini.model.*;
 
 public interface CardService {
 
-	void createEpic(Epic epic);
+	Epic createEpic(Epic epic);
 
-	void createStory();
+	Story createStory(Story story, Epic epic);
 
-	void createTask();
+	Task createTask(Task task, Story story);
 
-	void createSubTask();
+	SubTask createSubTask(SubTask subTask, Task task);
 
-	void addDependency();
+	void addDependency(Dependency dependency);
 }
