@@ -16,9 +16,7 @@ public class MemoryCardServiceImpl implements CardService {
 	private Map<String, Task> taskMap = new HashMap<>();
 	private Map<String, SubTask> subtaskMap = new HashMap<>();
 
-	/**
-	 * @param epic
-	 */
+
 	@Override
 	public Epic createEpic(Epic epic) {
 		epicMap.putIfAbsent(epic.getId(), epic);

@@ -17,7 +17,8 @@ public class Task extends Card{
 		super(title);
 	}
 
-	public void addDependency(Dependency dependency){
-		dependencies.add(dependency);
+	public Dependency createDependency(Task dependentTask){
+		Dependency dependency = new Dependency(story.getId(), dependentTask.getId(), DependencyType.DEPENDS_ON);
+		return dependency;
 	}
 }
